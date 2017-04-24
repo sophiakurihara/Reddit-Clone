@@ -15,6 +15,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/sayhello/{name?}', function($name = "World") {
+	$data = ['name' => $name];
+
+	return view('my-first-view', $data);
+});
+
+Route::get('/rolldice/{guess?}', function($guess = 0) {
+	$number = mt_rand(1, 6);
+	$message = '';
+
+
+	if ($guess > 6) {
+		return "Please enter a number between 1-6";
+	}
+
+	if ($guess == $number) {
+		$message = "Good guess!";
+	}
+	$data = ['number' => $number, 'guess' => $guess, 
+	'message' => $message];
+	return view('roll-dice', $data);
+});
+
 Route::get('/uppercase/{string?}', function($string = "string") {
 	$str = strtoupper($string);
 	return "$str";
