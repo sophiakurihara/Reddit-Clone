@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/from/{start}/to/{end}', function($start, $end) {
+	$data = ['start' => $start, 'end' => $end];
+	return view('foreach', $data);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,7 +30,6 @@ Route::get('/rolldice/{guess?}', function($guess = 0) {
 	$number = mt_rand(1, 6);
 	$message = '';
 
-
 	if ($guess > 6) {
 		return "Please enter a number between 1-6";
 	}
@@ -39,13 +43,15 @@ Route::get('/rolldice/{guess?}', function($guess = 0) {
 });
 
 Route::get('/uppercase/{string?}', function($string = "string") {
-	$str = strtoupper($string);
-	return "$str";
+	$upperString = strtoupper($string);
+	$data = ['string' => $string, 'upperString' => $upperString];
+	return view('uppercase', $data);
 });
 
 Route::get('/increment/{int?}', function($int = 0) {
-	$inc = ++$int;
-	return $inc;
+	$inc = $int + 1;
+	$data = ['int' => $int, 'inc' => $inc];
+	return view('increment', $data);
 });
 
 Route::get('/add/{num1?}/{num2?}', function($num1 = 0, $num2 = 1) {
