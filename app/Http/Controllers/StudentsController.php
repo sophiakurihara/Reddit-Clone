@@ -17,6 +17,12 @@ class StudentsController extends Controller
     public function index()
     {
         //
+        $students = \App\Models\Student::all();
+
+        $data = [];
+        $data['students'] = $students;
+
+        return view('students.index', $data);
     }
 
     /**
@@ -39,8 +45,14 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
         //
-        var_dump($request->all());
-        var_dump($request->first_name);
+        $student = new \App\Models\Student();
+        $student->first_name = $request->first_name;
+        $student->description = $request->description;
+        $student->subscribed = $request->subscribed;
+        $student->school_name = $request->school_name;
+        $student->save();
+
+        return redirect()->action('StudentsController@index');
     }
 
     /**

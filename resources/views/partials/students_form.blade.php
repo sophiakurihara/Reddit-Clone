@@ -26,7 +26,6 @@
 				id="subscribed"
 				name="subscribed" 
 				class="form-control"
-				value="{{ old('subscribed') }}"
 				{{ old('subscribed') === 'on'? 'checked' : '' }}
 				>
 		</div>

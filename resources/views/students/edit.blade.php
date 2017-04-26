@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- there should be a form here -->
-	<h1>Create a student</h1>
+	<h1>Update student info</h1>
 	
 	<form method="POST" action="{{ action('StudentsController@update') }}">
 		

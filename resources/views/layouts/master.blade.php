@@ -17,16 +17,7 @@
 	<nav>
 		<ul>
 			<li>
-				<a href="{{ action('HomeController@showNumbers', [10, 25]) }}">10 to 25</a>
-			</li>
-			<li>
 				<a href="{{ action('HomeController@showWelcome') }}">Home</a>
-			</li>
-			<li>
-				<a href="{{ action('HomeController@upperCase') }}">UpperCase</a>
-			</li>
-			<li>
-				<a href="{{ action('HomeController@plusOne') }}">Plus One</a>
 			</li>
 		</ul>
 	</nav>
