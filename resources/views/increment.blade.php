@@ -6,3 +6,5 @@
 
 	<h3>Plus one:</h3>
 		{{ $inc }}
+
+@stop

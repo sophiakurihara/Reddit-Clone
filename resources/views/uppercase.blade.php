@@ -6,3 +6,5 @@
 
 	<h3>Uppercased String:</h3>
 	{{ $upperString }}
+
+@stop
