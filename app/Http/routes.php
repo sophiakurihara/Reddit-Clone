@@ -48,8 +48,8 @@ Route::resource('students', 'StudentsController');
 Route::get('orm-test', function () 
 {
 	$user = new \App\User();
-	$user->name = 'Sophia';
-	$user->email = 'sophia.sudiacal@gmail.com';
+	$user->name = 'Beans';
+	$user->email = 'beanskurihara@gmail.com';
 	$user->password = 'password';
 	$user->save();
 
@@ -60,8 +60,8 @@ Route::get('orm-test', function ()
 	$post->created_by = $user->id;
 	$post->save();
 
-	$post = \App\Models\Post::find(3); //call find first if needing to update
+	// $post = \App\Models\Post::find(1); //call find first if needing to update
 
-	$post->content = 'New content';
-	$post-save(); //update
+	// $post->content = 'New content';
+	// $post-save(); //update
 });

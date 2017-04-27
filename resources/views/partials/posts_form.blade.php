@@ -8,6 +8,9 @@
 		class="form-control"
 		value="{{ old('title') }}"
 		>
+		@if ($errors->has('title'))
+			{{ $errors->first('title') }}
+		@endif
 </div>
 <div class="form-group">
 	<label for="content">Content</label>
@@ -28,4 +31,7 @@
 		class="form-control"
 		value="{{ old('url') }}"
 		>
+		@if ($errors->has('url'))
+		{{ $errors->first('url') }}
+		@endif
 </div>

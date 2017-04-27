@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Students</h2>
-<table class="table-striped">
+<table class="table table-striped">
 	<tr>
 		<th>First Name</th>
 		<th>Description</th>

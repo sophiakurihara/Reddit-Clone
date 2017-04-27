@@ -7,19 +7,24 @@
     <title>Reddit</title>
 	<!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <style>
-		footer {
-			text-align: center;
-		}
-    </style>
+    <link rel="stylesheet" href="/css/head.css">
+
 </head>
 <body>
-	<nav>
-		<ul>
-			<li>
-				<a href="{{ action('HomeController@showWelcome') }}">Home</a>
+	<nav class="navbar navbar-default navbar-toggleable-md navbar-light bg-faded">
+  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="{{ action('HomeController@showWelcome') }}">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ action('PostsController@index') }}">Posts</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{{ action('StudentsController@index') }}">Students</a>
 			</li>
 		</ul>
+	</div>
 	</nav>
 	<main class="container">
     
