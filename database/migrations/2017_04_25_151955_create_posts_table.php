@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
         {
             $table->increments('id');
             $table->string('title', 500);
-            $table->string('url')->unique();
+            $table->string('url');
             $table->string('content', 1000);
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');

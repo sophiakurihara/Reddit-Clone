@@ -50,6 +50,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
+        
         $rules = array(
         'title' => 'required|max:100',
         'url'   => 'required', 
@@ -62,18 +63,14 @@ class PostsController extends Controller
         $post->title = $request->title;
         $post->content = $request->content;
         $post->url = $request->url;
-        $post->created_by = '1';
+        $post->created_by = \Auth::id();
         $post->save();
 
-        Log::info("New post saved", $request->all());
+        \Log::info("New post saved", $request->all());
 
         $request->session()->flash('successMessage', 'Post saved successfully');
         return redirect()->action('PostsController@show', [$post->id]);
 
-        $data = [];
-        $data['post'] = $post;
-
-        return view('posts.show')->with($data);
     }
 
     /**
