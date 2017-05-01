@@ -1,5 +1,21 @@
 @extends('layouts.master')
 
+@section('more_css')
+<style>
+		.row {
+			position: relative;
+			clear:left;
+			left: 50%;
+		}
+		.btn-primary {
+			position: relative;
+			clear: left;
+		}
+	}
+</style>
+
+@stop
+
 @section('content')
 <h2>Posts</h2>
 	@foreach($posts as $post)
@@ -23,7 +39,7 @@
 </div>
 
 <form method="GET" action="{{ action('PostsController@create') }}">
-	<input type="submit" class="col-md-3 btn btn-default" value="Create post">
+	<input type="submit" class="col-md-3 btn btn-primary" value="Create post">
 </form>
 </div>
 @stop

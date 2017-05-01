@@ -47,8 +47,6 @@
     	@yield('content')
 		
 	</main>
-
-    <footer class="footer footer-fixed-bottom">Copyright 2017</footer>
 	
 	<!-- Bootstrap JS  -->
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

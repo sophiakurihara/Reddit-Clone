@@ -8,7 +8,7 @@ class StudentTableSeeder extends Seeder
     public function run() 
     {
         $faker = Faker\Factory::create();
-        for($i = 0; $i <= 500; $i++) {
+        for($i = 0; $i <= 250; $i++) {
             $student = new Student();
             $student->first_name = $faker->firstName;
             $student->school_name = $faker->company;
