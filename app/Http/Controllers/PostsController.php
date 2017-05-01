@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['create', 'store', 'edit', 'update', 'destroy']);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
-        $posts = \App\Models\Post::paginate(3);
+        $posts = \App\Models\Post::paginate(4);
 
 
         $data = [];
@@ -47,19 +52,28 @@ class PostsController extends Controller
     {
         $rules = array(
         'title' => 'required|max:100',
-        'url'   => 'required'
+        'url'   => 'required', 
+        'content' => 'required'
         );
 
         $this->validate($request, $rules);
         //
-        $post = new \App\Models\Post();
+        $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
         $post->url = $request->url;
         $post->created_by = '1';
         $post->save();
 
-        return redirect()->action('PostsController@index');
+        Log::info("New post saved", $request->all());
+
+        $request->session()->flash('successMessage', 'Post saved successfully');
+        return redirect()->action('PostsController@show', [$post->id]);
+
+        $data = [];
+        $data['post'] = $post;
+
+        return view('posts.show')->with($data);
     }
 
     /**
@@ -70,9 +84,11 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
-        $post = \App\Models\Post::find($id);
-        return view('posts.show', ['post' => $post]);
+        $post = Post::find($id);
+
+        $data = [];
+        $data['post'] = $post;
+        return view('posts.show')->with($data);
     }
 
     /**
@@ -84,8 +100,17 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
-        $post = \App\Models\Post::find($id);
-        return view('posts.edit', ['post' => $post]);
+        $post = Post::find($id);
+
+        if(!$post) {
+            Log::error("Post with id of $id not found.");
+            abort(404);
+        }
+
+        $data = [];
+        $data['post'] = $post;
+
+        return view('posts.edit')-with($data);
     }
 
     /**
@@ -97,16 +122,27 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'title' => 'required|max:100',
+            'url' => 'required|url',
+            'content' => 'required'
+        ];
+
+        $this->validate($request, $rules);
+
         //return back()->withInput();
-        $post = \App\Models\Post::find($id);
+        $post = Post::find($id);
 
         $post->title = $request->title;
         $post->content = $request->content;
         $post->url = $request->url;
-        $post->created_by = '1';
+        $post->created_by = $request->created_by;
         $post->save();
 
-        return redirect()->action('PostsController@index');
+        $data = [];
+        $data['post'] = $post;
+
+        return view('posts.show')-with($data);
     }
 
     /**

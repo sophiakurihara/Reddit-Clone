@@ -20,4 +20,8 @@
 
 	{{ method_field('DELETE') }}
 	</form>
+
+	@if(session()->has('successMessage'))
+        <p>{{ session('successMessage') }}</p>
+	@endif
 @stop

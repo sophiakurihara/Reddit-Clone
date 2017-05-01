@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Student;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Session;
+use Log;
 
 class StudentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['create', 'store', 'edit', 'update', 'destroy']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +23,7 @@ class StudentsController extends Controller
     public function index()
     {
         //
-        $students = \App\Models\Student::all();
+        $students = \App\Models\Student::paginate(4);
 
         $data = [];
         $data['students'] = $students;
@@ -45,14 +51,16 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
         //
-        $student = new \App\Models\Student();
+        $student = new Student();
         $student->first_name = $request->first_name;
         $student->description = $request->description;
         $student->subscribed = $request->subscribed;
         $student->school_name = $request->school_name;
         $student->save();
 
-        return redirect()->action('StudentsController@index');
+        $request-session()->flash('successMessage', 'Post saved successfully');
+
+        return redirect()-action('StudentsController@show', $student->id);
     }
 
     /**
@@ -63,7 +71,14 @@ class StudentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $student = Student::find($id);
+
+        if(!$student) {
+            Log::info("Student with ID $id cannot be found");
+            $request->session()->flash('errorMessage', 'Post not found');
+            abort(404);
+        }
+        return view('students.show')->with('student', $student);
     }
 
     /**
@@ -74,8 +89,13 @@ class StudentsController extends Controller
      */
     public function edit($id)
     {
+        $student = Student::find($id);
+
+        if(!$student) {
+            Session::flash("errorMessage", "Student not found");
+        }
         //
-        return view('students.edit');
+        return view('students.edit')->with('student', $student);
     }
 
     /**
@@ -87,7 +107,20 @@ class StudentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Student::find($id);
+
+        if(!$student) {
+            Session::flash("errorMessage", "Student not found");
+            return redirect()->action("StudentsController@index");
+        }
+
+        $student->first_name = $request->first_name;
+        $student->description = $request->description;
+        $student->subscribed = $request->subscribed;
+        $student->school_name = $request->school_name;
+        $student->save();
+
+        return view('students.show')->with('studnet', $student);
     }
 
     /**
@@ -98,6 +131,14 @@ class StudentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        
+        if(!$student) {
+            Session::flash('errorMessage', "Post not found");
+            return redirect()->action('StudentsController@index');
+        }
+
+        $student->delete();
+        return redirect()->action('StudentsController@index');
     }
 }

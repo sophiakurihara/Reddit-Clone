@@ -1,5 +1,10 @@
 @extends('layouts.master')
 
+@section('more_css')
+	<link rel="stylesheet" href="/css/home.css">
+
+@stop
+
 @section('content')
 
 	@if ($name !== 'World')

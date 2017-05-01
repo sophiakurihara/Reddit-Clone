@@ -38,7 +38,6 @@
 // 	return $sum;
 // });
 Route::get('/', 'HomeController@showWelcome');
-
 Route::get('/sayhello/{name?}', 'HomeController@sayHello');
 
 
@@ -65,3 +64,20 @@ Route::get('orm-test', function ()
 	// $post->content = 'New content';
 	// $post-save(); //update
 });
+
+Route::get('/posts', 'PostsController@index');
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts', 'PostsController@store');
+Route::get('/posts/{posts}', 'PostsController@show');
+Route::get('/posts/{posts}/edit', 'PostsController@edit'); 
+Route::put('/posts/{posts}', 'PostsController@update');
+Route::delete('/posts/{posts}', 'PostsController@destroy');
+
+// Authentication routes
+Route::get('/login', 'Auth\AuthController@getLogin');
+Route::post('/login', 'Auth\AuthController@postLogin');
+Route::get('/logout', 'Auth\AuthController@getLogout');
+
+// Registration routes...
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', 'Auth\AuthController@postRegister');
