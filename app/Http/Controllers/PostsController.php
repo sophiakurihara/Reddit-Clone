@@ -21,17 +21,20 @@ class PostsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        if(isset($request->search)) {
-            $posts = Post::with('user')->where('title', 'like', "%request->search%");         
+        if($request->has('search')) {
+            $posts = Post::join('users', 'created_by', '=', 'users.id')
+            ->where('title', 'LIKE', "%$request->search%")
+            ->orWhere('name', 'LIKE', "%$request->search%")
+            ->paginate(4);         
         } else {
-            $posts = Post::with('user');
+            $posts = Post::orderBy('created_at', 'DESC')->paginate(4);
         }
 
 
         $data = [];
-        $data['posts'] = $posts->orderBy('created_at', 'DESC')->paginate(4);
+        $data['posts'] = $posts;
 
         return view('posts.index', $data); 
     }
@@ -160,12 +163,5 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect()->action('PostsController@index');
-    }
-
-    public function search(Request $request, $id)
-    {
-        $posts = 
-        $data = [];
-        $data['posts'] = $posts;
     }
 }
