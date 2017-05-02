@@ -13,6 +13,7 @@ class StudentTableSeeder extends Seeder
             $student->first_name = $faker->firstName;
             $student->school_name = $faker->company;
             $student->description = $faker->text($maxNbChars = 200); 
+            $student->subscribed = $faker->boolean;
             $student->save();
         }
     }

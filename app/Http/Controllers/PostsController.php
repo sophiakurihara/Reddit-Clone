@@ -23,8 +23,12 @@ class PostsController extends Controller
 
     public function index()
     {
-        //
-        $posts = \App\Models\Post::paginate(4);
+        if(isset($request->search)) {
+            $posts = Post::with('user')->where('title', 'like', "%request->search%")
+                ->orderBy('created_at', 'DESC')->paginate(4);         
+        } else {
+            $posts = Post::with('user')->paginate(4);
+        }
 
 
         $data = [];

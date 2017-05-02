@@ -8,7 +8,7 @@
 	   		<h3>{{ $student->first_name }}</h3>
             <h4>School: {{ $student->school_name }}</h4>
             <p>Description: {{ $student->description }}</p>
-            <p>Subscribed: {{ $student->subscribed }}</p>
+            <p>Subscribed: {{ $student->subscribed ? "yes" : "no" }} </p>
        	</article>
 	@endforeach
 
