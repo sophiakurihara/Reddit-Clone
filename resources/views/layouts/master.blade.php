@@ -12,7 +12,7 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-toggleable-md navbar-light bg-faded">
+	<nav class="navbar navbar-default navbar-toggleable-md">
   	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
@@ -25,6 +25,14 @@
 				<a class="nav-link" href="{{ action('StudentsController@index') }}">Students</a>
 			</li>
 		</ul>
+		<form class="navbar-form" role="search" action="{{ action('PostsController@index') }}">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </form>
 		<ul class="navbar-nav navbar-right">
 			@if (Auth::check())
 				<li>{{ Auth::user()->name }}</li>

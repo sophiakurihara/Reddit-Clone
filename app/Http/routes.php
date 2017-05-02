@@ -44,8 +44,10 @@ Route::get('/sayhello/{name?}', 'HomeController@sayHello');
 Route::resource('posts', 'PostsController');
 Route::resource('students', 'StudentsController');
 
-Route::get('orm-test', function () 
+
+Route::get('/orm-test', function () 
 {
+	
 	$user = new \App\User();
 	$user->name = 'Beans';
 	$user->email = 'beanskurihara@gmail.com';

@@ -24,15 +24,14 @@ class PostsController extends Controller
     public function index()
     {
         if(isset($request->search)) {
-            $posts = Post::with('user')->where('title', 'like', "%request->search%")
-                ->orderBy('created_at', 'DESC')->paginate(4);         
+            $posts = Post::with('user')->where('title', 'like', "%request->search%");         
         } else {
-            $posts = Post::with('user')->paginate(4);
+            $posts = Post::with('user');
         }
 
 
         $data = [];
-        $data['posts'] = $posts;
+        $data['posts'] = $posts->orderBy('created_at', 'DESC')->paginate(4);
 
         return view('posts.index', $data); 
     }
@@ -161,5 +160,12 @@ class PostsController extends Controller
         $post->delete();
 
         return redirect()->action('PostsController@index');
+    }
+
+    public function search(Request $request, $id)
+    {
+        $posts = 
+        $data = [];
+        $data['posts'] = $posts;
     }
 }
