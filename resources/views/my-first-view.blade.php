@@ -7,13 +7,23 @@
 
 @section('content')
 
-	@if ($name !== 'World')
-    	
-   		<h1>Hello, {{ $name }}!</h1>
+	@if (Auth::check())
+   		<h1>Hello, {{ Auth::user()->name }}!</h1>
+   		<img src="/img/kermit.jpg">
+
+   	<div class="col-md-6">
+   		<form method="GET" action="{{ action('PostsController@create') }}">
+			<input type="submit" class="col-md-3 btn btn-success" value="Create a post">
+		</form>
+		<form method="GET" action="{{ action('StudentsController@create') }}">
+			<input type="submit" class="col-md-3 btn btn-success" value="Create a student">
+		</form>
+	</div>
 		
 	@else
 	
-		<p>Do you have a name?</p>
+		<h1>Ribbit...</h1>
+		<img src="/img/kermit.jpg">
 
 	@endif
 

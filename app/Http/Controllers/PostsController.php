@@ -27,7 +27,9 @@ class PostsController extends Controller
             $posts = Post::join('users', 'created_by', '=', 'users.id')
             ->where('title', 'LIKE', "%$request->search%")
             ->orWhere('name', 'LIKE', "%$request->search%")
+            ->orderBy('created_by', 'ASC')
             ->paginate(4);         
+        $posts->appends($request->all());
         } else {
             $posts = Post::orderBy('created_at', 'DESC')->paginate(4);
         }
