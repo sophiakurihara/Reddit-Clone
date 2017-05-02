@@ -9,8 +9,7 @@
 
 	@if (Auth::check())
    		<h1>Hello, {{ Auth::user()->name }}!</h1>
-   		<img src="/img/kermit.jpg">
-
+   		<img src="/img/kermit.jpg" id="kermit">
    	<div class="col-md-6">
    		<form method="GET" action="{{ action('PostsController@create') }}">
 			<input type="submit" class="col-md-3 btn btn-success" value="Create a post">

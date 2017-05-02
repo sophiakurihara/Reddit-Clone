@@ -6,11 +6,20 @@ img {
 	width: 50%;
 	position: center;
 	margin: auto;
+	border-radius: 15px;
+}
+
+#kermit {
+	display: block;
+	width: 50%;
+	position: center;
+	margin: auto;
 	float: left;
+	border-radius: 15px;
 }
 
 .btn-success {
-	width: 75%;
+	width: 100%;
 	position: center;
 	margin-left: 50px;
 	margin-bottom: 50px;
