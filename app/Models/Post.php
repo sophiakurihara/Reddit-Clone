@@ -20,4 +20,9 @@ class Post extends BaseModel
     {
     	return $this->belongsTo('App\User', 'created_by');
     }
+
+    public function votes()
+    {
+        return $this->hasMany('App\Models\Vote', 'id');
+    }
 }

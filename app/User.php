@@ -41,4 +41,9 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Models\Post', 'created_by');
     }
+
+    public function votes()
+    {
+        return $this->hasMany('App\Models\Vote', 'user_id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Vote;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -24,14 +25,19 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         if($request->has('search')) {
-            $posts = Post::join('users', 'created_by', '=', 'users.id')
+            $posts = Post::with('user')->with('votes')
             ->where('title', 'LIKE', "%$request->search%")
-            ->orWhere('name', 'LIKE', "%$request->search%")
+            ->orWhereHas('user', function ($query) use($request){ 
+                $query->where('name', 'LIKE', "%$request->search%");
+            })
             ->orderBy('created_by', 'ASC')
             ->paginate(4);         
-        $posts->appends($request->all());
+            $posts->appends($request->all());
+
         } else {
-            $posts = Post::orderBy('created_at', 'DESC')->paginate(4);
+            $posts = Post::with('user')->with('votes')
+            ->orderBy('created_by', 'DESC')
+            ->paginate(4);
         }
 
 
@@ -149,7 +155,22 @@ class PostsController extends Controller
         $data = [];
         $data['post'] = $post;
 
-        return view('posts.show')-with($data);
+        return view('posts.show')->with($data);
+    }
+
+    public function vote(Request $request, $id)
+    {
+        $vote = new Vote();
+        $vote->user_id = \Auth::id(); //gets ID for current user logged in
+        $vote->vote = $request->vote;
+        $vote->post_id = $id;
+        $vote->save();
+
+        $data = [];
+        $data['vote'] = $vote;
+
+        return redirect()->action('PostsController@vote');
+
     }
 
     /**

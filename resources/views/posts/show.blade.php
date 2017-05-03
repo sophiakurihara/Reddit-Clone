@@ -24,4 +24,10 @@
 	@if(session()->has('successMessage'))
         <p>{{ session('successMessage') }}</p>
 	@endif
+
+	<form method="POST" action="{{ action('PostsController@vote') }}">
+		{!! csrf_field() !!}
+		<button type="submit" class="btn btn-success" value="1" name="vote">Up</button>
+		<button type="submit" class="btn btn-success" value="0" name="vote">Down</button>
+	</form>
 @stop

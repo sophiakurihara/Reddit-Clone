@@ -50,7 +50,13 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array(
+            'first_name' => 'required|max:100',
+            'description' => 'required'
+        );
+
+        $this->validate($request, $rules);
+
         $student = new Student();
         $student->first_name = $request->first_name;
         $student->description = $request->description;
@@ -58,9 +64,10 @@ class StudentsController extends Controller
         $student->school_name = $request->school_name;
         $student->save();
 
-        $request-session()->flash('successMessage', 'Post saved successfully');
+        \Log::info("New student profile saved", $request->all());
 
-        return redirect()-action('StudentsController@show', $student->id);
+        $request->session()->flash('successMessage', 'Post saved successfully');
+        return redirect()->action('StudentsController@index');
     }
 
     /**
@@ -120,7 +127,7 @@ class StudentsController extends Controller
         $student->school_name = $request->school_name;
         $student->save();
 
-        return view('students.show')->with('studnet', $student);
+        return view('students.show')->with('student', $student);
     }
 
     /**

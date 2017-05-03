@@ -74,6 +74,7 @@ Route::get('/posts/{posts}', 'PostsController@show');
 Route::get('/posts/{posts}/edit', 'PostsController@edit'); 
 Route::put('/posts/{posts}', 'PostsController@update');
 Route::delete('/posts/{posts}', 'PostsController@destroy');
+Route::post('/posts/{posts}/vote', 'PostsController@vote');
 
 // Authentication routes
 Route::get('/login', 'Auth\AuthController@getLogin');
@@ -83,3 +84,4 @@ Route::get('/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', 'Auth\AuthController@postRegister');
+
